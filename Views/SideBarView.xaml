@@ -210,7 +210,7 @@
 			</TextBlock>
 			<TextBox Name="Search" Background="Transparent" Margin="35,0,40,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="{StaticResource LD_SearchForegroundBrush}" CaretBrush="{StaticResource LD_SearchForegroundBrush}" BorderThickness="0" Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FocusVisualStyle="{StaticResource FocusVisualStyle}" WindowChrome.IsHitTestVisibleInChrome="True"/>
 			<!-- E71C E721 searh icons -->
-			<Label Name="SearchIcon" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" FontFamily="Segoe MDL2 Assets" Content="&#xE71C;" Foreground="{StaticResource LD_SearchForegroundBrush}" Padding="0, 0, 13, 0" HorizontalAlignment="Left" WindowChrome.IsHitTestVisibleInChrome="True" SnapsToDevicePixels="True"/>
+<!--		<Label Name="SearchIcon" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" FontFamily="Segoe MDL2 Assets" Content="&#xE71C;" Foreground="{StaticResource LD_SearchForegroundBrush}" Padding="0, 0, 13, 0" HorizontalAlignment="Left" WindowChrome.IsHitTestVisibleInChrome="True" SnapsToDevicePixels="True"/> -->
 			<Button Name="SearchClear" ToolTip="Clear" Width="33" Height="16" Margin="0,3,8,0" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding SearchClearVisibility}" FocusVisualStyle="{StaticResource FocusVisualStyle}" WindowChrome.IsHitTestVisibleInChrome="True">
 				<Grid>
 					<Polygon Points="12,0 14,0 17,3 20,0 22,0 18,4 22,8 20,8 17,5 14,8 12,8 16,4" StrokeThickness="0" Fill="{StaticResource LD_SearchForegroundBrush}"/>
@@ -234,6 +234,39 @@
 					</Style>
 				</Button.Style>
 			</Button>
+            <!-- filter button -->  
+			<Button x:Name="OpenFiltersMenu" ToolTip="Filters" Margin="10,0,0,0" Padding="0, 0, 13, 0" Background="Transparent" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center" FocusVisualStyle="{StaticResource FocusVisualStyle}" WindowChrome.IsHitTestVisibleInChrome="True">
+				<Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Name="Border" BorderThickness="0" Background="{TemplateBinding Background}" CornerRadius="0,0,0,0">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="{StaticResource LD_HoverBackgroundBrush}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+                <TextBlock Text="&#xE71C;" FontFamily="Segoe MDL2 Assets">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FiltersApplied}" Value="True">
+                                    <Setter Property="Foreground" Value="#39FF14"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Button>
 		</Grid>
 		<!-- COMBO BOX -->
 		<ComboBox Grid.Row="4" Name="ListTypeItems" ItemsSource="{Binding ListTypeItems}" SelectedItem="{Binding Path=SelectedListTypeItem, Mode=TwoWay}" FocusVisualStyle="{StaticResource FocusVisualStyle}" VerticalAlignment="Center" Margin="5,0,5,0">
