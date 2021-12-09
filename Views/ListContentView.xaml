@@ -1,4 +1,4 @@
-<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:cal="http://www.caliburnproject.org" xmlns:system="clr-namespace:System;assembly=mscorlib" Focusable="False" >
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:cal="http://www.caliburnproject.org" xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:windows="clr-namespace:Unbroken.LaunchBox.Windows;assembly=Unbroken.LaunchBox.Windows" Focusable="False" >
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -228,6 +228,131 @@
 							<TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.CommunityStarRatingCountLabel}" />
 						</DataGridTextColumn.Header>
 					</DataGridTextColumn>
+                    <DataGridTemplateColumn CellStyle="{StaticResource DataGridCellStyle}" CanUserSort="True" SortMemberPath="AlternateNames">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AltNamesLabel}" />
+                        </DataGridTemplateColumn.Header>
+					<!-- TODO - Add TextTrimming properties to all columns where it makes sense? -->
+                    <!--<DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AlternateNames}" TextTrimming="WordEllipsis" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>-->
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn CellStyle="{StaticResource DataGridCellStyle}" CanUserSort="True" SortMemberPath="WikipediaUrl">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.WikipediaUrlLabel}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Hyperlink Foreground="{Binding ForegroundBrush}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.WebLinkCommand}"
+                                               CommandParameter="{Binding Game.WikipediaUrl}">
+                                        <TextBlock Text="{Binding Game.WikipediaUrl}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Game.MaxPlayers}" CellStyle="{StaticResource DataGridCellStyle}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.MaxPlayersLabel}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Game.ReleaseType}" CellStyle="{StaticResource DataGridCellStyle}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ReleaseTypeLabel}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn CellStyle="{StaticResource DataGridCellStyle}" CanUserSort="True" SortMemberPath="VideoUrl">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.VideoUrlLabel}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Hyperlink Foreground="{Binding ForegroundBrush}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.WebLinkCommand}"
+                                               CommandParameter="{Binding Game.VideoUrl}">
+                                        <TextBlock Text="{Binding Game.VideoUrl}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Installed}" CellStyle="{StaticResource DataGridCellStyle}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.InstalledLabel}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Game.ApplicationPath}" CellStyle="{StaticResource DataGridCellStyle}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ApplicationPathLabel}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn CellStyle="{StaticResource DataGridCellStyle}" CanUserSort="True" SortMemberPath="LaunchBoxDbId">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.LaunchboxDbIdLabel}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Hyperlink Foreground="{Binding ForegroundBrush}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.WebLinkCommand}"
+                                               CommandParameter="{Binding LaunchBoxDbUrl}">
+                                        <TextBlock Text="{Binding LaunchBoxDbId}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn CellStyle="{StaticResource DataGridCellStyle}" SortMemberPath="Badges.Count">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.BadgesLabel}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataTemplate.Resources>
+                                    <windows:ImageToSourceConverter x:Key="ImageToSourceConverter" x:Name="ImageToSourceConverter"/>
+                                </DataTemplate.Resources>
+                                <ListView ItemsSource="{Binding Badges}" Background="Transparent" BorderThickness="0" VerticalAlignment="Center"
+                                          HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image x:Name="BadgeImage" Source="{Binding Path=Icon, Converter={StaticResource ImageToSourceConverter}, Mode=OneTime}"
+                                                    Width="20" Margin="0,0,6,0" RenderOptions.BitmapScalingMode="HighQuality" ToolTip="{Binding Name, Mode=OneTime}" />
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="SnapsToDevicePixels" Value="True" />
+                                            <Setter Property="Margin" Value="0" />
+                                            <Setter Property="Padding" Value="0" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                        <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="Stretch" VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                   <DataGridTextColumn Binding="{Binding Game.PlayTimeHms}" CellStyle="{StaticResource DataGridCellStyle}" SortMemberPath="Game.PlayTime">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.PlayTimeLabel}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
 				</DataGrid.Columns>
 				<DataGrid.CellStyle>
 					<Style TargetType="{x:Type DataGridCell}">
