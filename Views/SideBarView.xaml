@@ -199,7 +199,7 @@
 		<Rectangle Grid.Row="2" Fill="{StaticResource LD_SearchRowBackgroundBrush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="-5,0,-5,0"/>
 		<Grid Grid.Row="2" VerticalAlignment="Center">
 			<Border BorderThickness="1" BorderBrush="{StaticResource LD_SearchBorderBrush}" SnapsToDevicePixels="True" Margin="0,0,5,0">
-				<TextBox Text="" Background="{StaticResource LD_SearchBackgroundBrush}" VerticalAlignment="Center" BorderThickness="0" Padding="2"/>
+				<TextBox Text="" Background="{StaticResource LD_SearchBackgroundBrush}" VerticalAlignment="Center" BorderThickness="0" Padding="2" IsReadOnly="True"/>
 			</Border>
 			<TextBlock VerticalAlignment="Center" Foreground="{StaticResource LD_FadedSearchForegroundBrush}" Margin="40,0,5,0" Visibility="{Binding ElementName=Search, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
 				<TextBlock.Text>
@@ -254,7 +254,7 @@
                         </Setter>
                     </Style>
                 </Button.Style>
-                <TextBlock Text="&#xE71C;" FontFamily="Segoe MDL2 Assets" IsReadOnly="True">
+                <TextBlock Text="&#xE71C;" FontFamily="Segoe MDL2 Assets">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Foreground" Value="White"/>
