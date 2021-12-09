@@ -123,7 +123,7 @@
 							<TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.PublishersLabel}" />
 						</DataGridTextColumn.Header>
 					</DataGridTextColumn>
-					<DataGridTextColumn Binding="{Binding ReleaseDate}" CellStyle="{StaticResource RightAlignDataGridCellStyle}">
+					<DataGridTextColumn Binding="{Binding ReleaseDate}" CellStyle="{StaticResource RightAlignDataGridCellStyle}"  SortMemberPath="ReleaseDateSortValue">
 						<DataGridTextColumn.Header>
 							<TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ReleaseDateLabel}" />
 						</DataGridTextColumn.Header>
@@ -168,17 +168,17 @@
 							<TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.SourceLabel}" />
 						</DataGridTextColumn.Header>
 					</DataGridTextColumn>
-					<DataGridTextColumn Binding="{Binding LastPlayed}" CellStyle="{StaticResource RightAlignDataGridCellStyle}">
+					<DataGridTextColumn Binding="{Binding LastPlayed}" CellStyle="{StaticResource RightAlignDataGridCellStyle}" SortMemberPath="LastPlayedSortValue">
 						<DataGridTextColumn.Header>
 							<TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.LastPlayedLabel}" />
 						</DataGridTextColumn.Header>
 					</DataGridTextColumn>
-					<DataGridTextColumn Binding="{Binding DateAdded}" CellStyle="{StaticResource RightAlignDataGridCellStyle}">
+					<DataGridTextColumn Binding="{Binding DateAdded}" CellStyle="{StaticResource RightAlignDataGridCellStyle}" SortMemberPath="DateAddedSortValue">
 						<DataGridTextColumn.Header>
 							<TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddedLabel}" />
 						</DataGridTextColumn.Header>
 					</DataGridTextColumn>
-					<DataGridTextColumn Binding="{Binding DateModified}" CellStyle="{StaticResource RightAlignDataGridCellStyle}">
+					<DataGridTextColumn Binding="{Binding DateModified}" CellStyle="{StaticResource RightAlignDataGridCellStyle}" SortMemberPath="DateModifiedSortValue">
 						<DataGridTextColumn.Header>
 							<TextBlock Margin="0,0,10,0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ModifiedLabel}" />
 						</DataGridTextColumn.Header>
