@@ -139,7 +139,7 @@
 					</Button.Style>
 				</Button>
 				<TextBlock Text=" &#x39B; " FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Foreground="{StaticResource LD_FadedForegroundBrush}" VerticalAlignment="Center" />
-				<TextBlock Text=" BETA-FIX 1.1.2A" Foreground="{StaticResource LD_FadedForegroundBrush}" FontSize="9" Typography.Capitals="AllPetiteCaps" VerticalAlignment="Center" />
+				<TextBlock Text=" BETA-FIX 1.1.2A" Foreground="{StaticResource LD_FadedForegroundBrush}" FontSize="9" Typography.Capitals="AllPetiteCaps" VerticalAlignment="Center" ToolTip="lb-theme-lambda-fix"/>
 			</StackPanel>
 			<!-- PROCESSING PROGRESS -->
 			<Grid Grid.Row="4" Grid.RowSpan="1" Grid.Column="2" Height="3" Panel.ZIndex="99" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="{Binding ProcessingVisibility}" Margin="0,0,0,0" >
