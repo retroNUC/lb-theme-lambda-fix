@@ -254,7 +254,7 @@
                         </Setter>
                     </Style>
                 </Button.Style>
-                <TextBlock Text="&#xE71C;" FontFamily="Segoe MDL2 Assets">
+                <TextBlock Text="&#xE71C;" FontFamily="Segoe MDL2 Assets" IsReadOnly="True">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Foreground" Value="White"/>
