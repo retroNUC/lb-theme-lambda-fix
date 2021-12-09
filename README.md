@@ -4,6 +4,11 @@ Updated and fixed version of [Lambda](https://forums.launchbox-app.com/files/fil
 
 ![Image View](https://forums.launchbox-app.com/uploads/monthly_2020_05/03-Greenshot-2020-04-29_15-27-47.png.beded1676c9c0f2a24449a2ef6fb1d96.png)
 
+## Instructions
+- Copy/extract files to a folder named `lb-theme-lambda-fix` within your `LBThemes` folder
+
+The theme folder ***must*** be called `lb-theme-lambda-fix` for now (until some relative directory dependencies are fixed)
+
 ## Additional Fixes
 
 ### SideBarView
