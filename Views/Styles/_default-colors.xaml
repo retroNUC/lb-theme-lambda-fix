@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<!-- 
+Foreground colors based on:
+Microsoft UI XAML Proposal: Improve the default Light and Dark Theme colours
+ https://github.com/microsoft/microsoft-ui-xaml/issues/920 
+-->
+	<x:String x:Key="LD_subtheme_name">mdtauk dark</x:String>
+	<sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="LD_MaxBackgroundImageOpacity">0</sys:Double>
+	<Style TargetType="Rectangle" x:Key="LD_ToolBarSurfaceShape">            
+		<Setter Property="Visibility" Value="Collapsed"/>
+	</Style>
+	<SolidColorBrush x:Key="LD_ForegroundBrush" Color="#eaffffff"/>
+	<SolidColorBrush x:Key="LD_FadedForegroundBrush" Color="#5effffff"/>
+	<SolidColorBrush x:Key="LD_ToolBarBackgroundBrush" Color="#99222222"/>
+	<SolidColorBrush x:Key="LD_HoverBarBackgroundBrush" Color="#ee444444"/> 
+	<SolidColorBrush x:Key="LD_SelectionBrush" Color="#77aCaFbD"/>
+	<SolidColorBrush x:Key="LD_MainBackgroundBrush" Color="#26252a"/>
+	<SolidColorBrush x:Key="LD_SideBarBackgroundBrush" Color="#06888888"/> 
+	<SolidColorBrush x:Key="LD_ContentBackgroundBrush" Color="#06ffffff"/> 
+	<SolidColorBrush x:Key="LD_DetailsBackgroundBrush" Color="Transparent"/> 
+	<SolidColorBrush x:Key="LD_BoxesBackgroundBrush" Color="Transparent"/>
+	<SolidColorBrush x:Key="LD_VideoBackgroundBrush" Color="#cc000000"/>
+	<SolidColorBrush x:Key="LD_BadgesBackgroundBrush" Color="Transparent"/>	
+	<SolidColorBrush x:Key="LD_LineWindowBorderBrush" Color="#26252a"/>	
+	<SolidColorBrush x:Key="LD_LineSeparatorBrush" Color="#5effffff"/>
+	<SolidColorBrush x:Key="LD_LineToolBarBrush" Color="#aa222222"/>
+	<SolidColorBrush x:Key="LD_LineSideBarBrush" Color="Transparent"/>
+	<SolidColorBrush x:Key="LD_LineDetailsBarBrush" Color="Transparent"/>
+	<SolidColorBrush x:Key="LD_ListHeadingBackgroundBrush" Color="Transparent"/>
+	<SolidColorBrush x:Key="LD_ListItemAltBackgroundBrush" Color="Transparent"/>
+	<SolidColorBrush x:Key="LD_LineListItemSeperatorBrush" Color="#22ffffff"/>
+	<SolidColorBrush x:Key="LD_LineListHeadingSeperatorBrush" Color="#5effffff"/>
+<!--
+    <SolidColorBrush x:Key="LD_SearchForegroundBrush" Color="#ff000000"></SolidColorBrush>
+    <SolidColorBrush x:Key="LD_FadedSearchForegroundBrush" Color="#ff000000"></SolidColorBrush>
+    <SolidColorBrush x:Key="LD_SearchBackgroundBrush" Color="#91ffffff"></SolidColorBrush>
+    <SolidColorBrush x:Key="LD_SearchBorderBrush" Color="Transparent"></SolidColorBrush>
+-->
+	<SolidColorBrush x:Key="LD_SearchForegroundBrush" Color="#91ffffff"/>
+	<SolidColorBrush x:Key="LD_FadedSearchForegroundBrush" Color="#5effffff"/>
+	<SolidColorBrush x:Key="LD_SearchRowBackgroundBrush" Color="Transparent"/>
+	<SolidColorBrush x:Key="LD_SearchBackgroundBrush" Color="#20ffffff"/>	
+	<SolidColorBrush x:Key="LD_SearchBorderBrush" Color="#20ffffff"/>
+	<SolidColorBrush x:Key="LD_SelectionBackgroundBrush" Color="#f8ffffff"/> 
+	<SolidColorBrush x:Key="LD_HoverBackgroundBrush" Color="#2bffffff"/>
+	<SolidColorBrush x:Key="ScrollbarUnfocusBrush" Color="#2bffffff"/>
+	<SolidColorBrush x:Key="ScrollbarFocusBrush" Color="#91ffffff"/>	
+	<SolidColorBrush x:Key="LD_ButtonForegroundBrush" Color="#cdffffff"/>
+	<SolidColorBrush x:Key="LD_ButtonBackgroundBrush" Color="#2bffffff"/> <!-- play button -->
+	<SolidColorBrush x:Key="LD_ButtonBorderBrush" Color="#ff4d4fac"/> <!-- play button -->
+	<SolidColorBrush x:Key="LD_HoverButtonForegroundBrush" Color="#f4ffffff"/> <!-- sliders -->
+	<SolidColorBrush x:Key="LD_HoverButtonBackgroundBrush" Color="#2bffffff"/> 
+	<SolidColorBrush x:Key="LD_HoverButtonBorderBrush" Color="#cdffffff"/> <!-- play button -->
+	<SolidColorBrush x:Key="LD_DisabledButtonForegroundBrush" Color="#2bffffff"/>
+	<SolidColorBrush x:Key="LD_DisabledButtonBackgroundBrush" Color="#08ffffff"/> <!-- play button -->
+	<SolidColorBrush x:Key="LD_DisabledButtonBorderBrush" Color="#2bffffff"/> <!-- play button -->
+</ResourceDictionary>

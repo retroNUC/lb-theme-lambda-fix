@@ -1,0 +1,808 @@
+<?xml version="1.0"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:controls="clr-namespace:Unbroken.LaunchBox.Windows.Desktop.Controls;assembly=LaunchBox" xmlns:next="clr-namespace:Unbroken.LaunchBox.Windows.Desktop;assembly=LaunchBox" xmlns:system="clr-namespace:System;assembly=mscorlib"  Focusable="False"   >
+	<!-- FontFamily="{Binding FontFamily}" FontSize="{Binding FontSize}" FontWeight="{Binding FontWeight}" FontStyle="{Binding FontStyle}" -->
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Views/Style.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<next:VideoWidthToHeightConverter x:Key="VideoWidthToHeightConverter"/>
+			<Style x:Key="FocusVisualStyle">
+				<Setter Property="Control.Template">
+					<Setter.Value>
+						<ControlTemplate>
+							<Rectangle StrokeThickness="1" Stroke="{StaticResource LD_ForegroundBrush}" SnapsToDevicePixels="true"/>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<Grid>
+		<StackPanel Style="{StaticResource DetailsCloseButtonVisibility}"  Canvas.ZIndex="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Margin="1,0,6,0" WindowChrome.IsHitTestVisibleInChrome="True" >
+			<Button  Name="Close" Content="&#xE8BB;" ToolTip="{Binding CloseLabel}" BorderThickness="0" Opacity="1" Margin="5" FontFamily="Segoe MDL2 Assets" FontSize="8"  FontWeight="Normal">
+				<Button.Style>
+					<Style TargetType="Button">
+						<Setter Property="Background" Value="Transparent"/>
+						<Setter Property="Foreground" Value="{StaticResource LD_ButtonForegroundBrush}"/>
+						<Setter Property="FontSize" Value="12"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type Button}">
+									<Border Name="Border" BorderThickness="0" Background="Transparent" Padding="5">
+										<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+									</Border>
+									<ControlTemplate.Triggers>
+										<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+											<Setter TargetName="Border" Property="Background" Value="{StaticResource LD_HoverBackgroundBrush}"/>
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</Button.Style>
+			</Button>
+		</StackPanel>
+		<!-- Can be: Top or Stretch (=Center) : -->
+		<Grid Grid.Row="0" Margin="0,45,0,45" VerticalAlignment="Stretch">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.Style>
+				<Style TargetType="Grid">
+					<Setter Property="Visibility" Value="Visible" />
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding EditVisibility}" Value="Visible">
+							<Setter Property="Visibility" Value="Collapsed" />
+						</DataTrigger>
+						<DataTrigger Binding="{Binding EditVisibility}" Value="Collapsed">
+							<Setter Property="Visibility" Value="Visible" />
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Grid.Style>
+			<Grid Visibility="Visible" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  >
+				<StackPanel  Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5,15,15">
+					<!-- <Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/logo.png" Margin="0" MaxHeight="150" /> -->
+					<Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/logo-flat.png" Margin="0" MaxHeight="150" />
+					<!-- <Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/logo-shadow.png" Margin="0" MaxHeight="150" /> -->
+					<TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Foreground="{StaticResource LD_ForegroundBrush}" Text="LaunchBox"  FontSize="22" FontWeight="Bold"  TextWrapping="Wrap" />
+				</StackPanel>
+			</Grid>
+			<WrapPanel  Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,0">
+				<TextBlock TextAlignment="Left" FontFamily="Courier New"  Foreground="{StaticResource LD_ForegroundBrush}" Text="{Binding Source={StaticResource LD_welcome_message},Mode=OneWay,Path=Text}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+			</WrapPanel>
+		</Grid>
+		<Grid Margin="10,0,10,15" VerticalAlignment="Top" >
+			<!-- Can be: Top / Center / Bottom / Stretch -->
+			<Grid Grid.Row="0" Margin="0,0,0,0" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid  Margin="0" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" SnapsToDevicePixels="True" >
+					<Grid.Style>
+						<Style TargetType="Grid">
+							<Setter Property="Visibility" Value="{Binding FanartVisibility}" />
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding VideoVisibility}" Value="Visible">
+									<Setter Property="Opacity" Value="{StaticResource LD_DetailsVideoFanartBackgroundOpacity}"/>
+									<Setter Property="MaxHeight" Value="{Binding ElementName=VideoAndTitleContainer, Path=ActualHeight}"/>
+									<Setter Property="Margin" Value="0" />
+								</DataTrigger>
+								<DataTrigger Binding="{Binding VideoVisibility}" Value="Collapsed">
+									<Setter Property="Height" Value="Auto" />
+									<Setter Property="MaxHeight" Value="{StaticResource LD_DetailsVideoFanartMaxHeight}" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Grid.Style>
+					<Grid.OpacityMask>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+						<GradientStop Color="#61ffffff" Offset="0"/>
+						<GradientStop Color="#e0ffffff" Offset="0.45"/>
+						<GradientStop Color="#e0ffffff" Offset="0.55"/>
+						<GradientStop Color="#00ffffff" Offset="1"/>
+						</LinearGradientBrush>
+					</Grid.OpacityMask>
+					<UniformGrid Margin="-10,-15,-10,0" ClipToBounds="True" Rows="1" Columns="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  x:Name="FanartImages" Height="Auto" Width="Auto" >
+						<UniformGrid.Resources>
+							<Style TargetType="{x:Type Image}">
+								<Setter Property="Stretch" Value="UniformToFill"/>
+								<Setter Property="VerticalAlignment" Value="Center"/>
+								<Setter Property="HorizontalAlignment" Value="Center"/>
+								<Setter Property="Margin" Value="0"/>
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding VideoVisibility}" Value="Visible">
+										<Setter Property="VerticalAlignment" Value="Center"/>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</UniformGrid.Resources>
+					</UniformGrid>
+				</Grid>
+				<StackPanel x:Name="VideoAndTitleContainer" VerticalAlignment="Bottom"  Visibility="{Binding EditVisibility}">
+					<StackPanel Margin="0,40,0,0" Orientation="Vertical"  HorizontalAlignment="Stretch" >
+						<!-- Video -->
+						<Grid  x:Name="VideoContainer" ClipToBounds="False" Visibility="{Binding VideoVisibility}" Margin="0,-10,0,5">
+							<Grid.Style>
+								<Style TargetType="Grid">
+									<Style.Triggers>
+										<DataTrigger Binding="{Binding FanartVisibility}" Value="Collapsed">
+											<Setter Property="Background" Value="{StaticResource LD_VideoBackgroundBrush}"/>
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</Grid.Style>
+							<Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/video_aspect_placeholder.png"  Margin="0"/>
+							<controls:VideoControl x:Name="VideoControl" ClipToBounds="True" Background="Transparent" Height="{Binding ElementName=VideoContainer, Path=ActualHeight}" />
+						</Grid>
+						<StackPanel HorizontalAlignment="Center" Margin="0,0,0,0">
+							<TextBlock HorizontalAlignment="Center" TextAlignment="Center" Foreground="{StaticResource LD_ForegroundBrush}" Text="{Binding Title}" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" Margin="0,5,0,0" />
+							<StackPanel Margin="0,0,0,0">
+								<TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource LD_ForegroundBrush}"  Margin="4,0,4,0">
+									<TextBlock.Text>
+										<MultiBinding StringFormat="{}{0} {1}">
+											<Binding Path="DeveloperPublisher" />
+											<Binding Path="PlatformReleaseDate" />
+										</MultiBinding>
+									</TextBlock.Text>
+									<TextBlock.Style>
+										<Style TargetType="{x:Type TextBlock}">
+											<Style.Triggers>
+												<Trigger Property="Text" Value=" ">
+													<Setter Property="Visibility" Value="Collapsed"/>
+												</Trigger>
+											</Style.Triggers>
+										</Style>
+									</TextBlock.Style>
+								</TextBlock>
+							</StackPanel>
+							<TextBlock  Margin="0,0,0,0" TextAlignment="Left" Text="SPACER" Foreground="Transparent" TextWrapping="Wrap"  />
+						</StackPanel>
+					</StackPanel>
+				</StackPanel>
+				<DockPanel LastChildFill="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding EditVisibility}"  >
+					<Border DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" Margin="0,1,0,0" BorderBrush="Transparent" SnapsToDevicePixels="true">
+						<WrapPanel  Opacity="1"  HorizontalAlignment="Stretch" Margin="0,0,0,0" >
+							<StackPanel Margin="0,0,10,0">
+								<!-- TODO: RetroScore is untested -->
+								<StackPanel Orientation="Horizontal" Margin ="0,0,0,4" Visibility="{Binding RetroScoreVisibility}">
+									<TextBlock Text="{Binding RetroScoreLabel}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,5,0"/>
+									<Button Name="LaunchRetroAchievements" BorderThickness="0" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Cursor="Hand">
+										<Image Height="16" Width="16" Source="pack://application:,,,/WpfResources/GlobeArrow.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+										<Button.ToolTip>
+											<TextBlock Text="{Binding GoToRetroAchievementsString}"/>
+										</Button.ToolTip>
+										<Button.Style>
+											<Style TargetType="Button">
+												<Setter Property="Template">
+													<Setter.Value>
+														<ControlTemplate TargetType="{x:Type Button}">
+															<Border Name="Border" BorderThickness="0">
+																<ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+															</Border>
+															<ControlTemplate.Triggers>
+																<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																	<Setter TargetName="Border" Property="Background" Value="Transparent" />
+																</Trigger>
+															</ControlTemplate.Triggers>
+														</ControlTemplate>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</Button.Style>
+									</Button>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal" Margin="0,8,0,0" Opacity="0.75">
+									<Grid Name="StarRatingGrid" Visibility="{Binding StarRatingVisibility}" Margin="0,0,8,0">
+										<!--<TextBlock TextAlignment="Left" Name="StarRatingFaded" HorizontalAlignment="Left" Text="&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;" Foreground="{StaticResource LD_HoverBackgroundBrush}" FontSize="24" FontFamily="Segoe UI" FontWeight="Normal" FontStyle="Normal"/><TextBlock TextAlignment="Left" Name="StarRating" HorizontalAlignment="Left" Text="&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;" Foreground="{Binding StarRatingBrush}" FontSize="24" FontFamily="Segoe UI" FontWeight="Normal" FontStyle="Normal" Width="{Binding StarRatingWidth}"/>-->
+										<TextBlock TextAlignment="Left" Name="StarRatingFaded" HorizontalAlignment="Left" Text="&#xE735;&#xE735;&#xE735;&#xE735;&#xE735;" Foreground="{StaticResource LD_ForegroundBrush}" FontFamily="Segoe MDL2 Assets"  FontSize="16" VerticalAlignment="Center" />
+										<TextBlock TextAlignment="Left" Name="StarRating" HorizontalAlignment="Left" Text="&#xE735;&#xE735;&#xE735;&#xE735;&#xE735;" Foreground="{Binding StarRatingBrush}" FontFamily="Segoe MDL2 Assets"  FontSize="16"  Width="{Binding StarRatingWidth}" VerticalAlignment="Center"/>
+									</Grid>
+									<Button Name="Favorite"  Visibility="{Binding FavoriteVisibility}"  FocusVisualStyle="{StaticResource FocusVisualStyle}" BorderThickness="0" Margin="0,0,0,0"   >
+										<TextBlock Foreground="{Binding FavoriteBrush}" ToolTip="{Binding FavoriteLabel}" FontFamily="Segoe MDL2 Assets" Text="&#xEB52;"  VerticalAlignment="Center" />
+										<!--<Button Name="Favorite" Margin="10,5,0,0" ToolTip="{Binding FavoriteLabel}" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Visibility="{Binding FavoriteVisibility}" FocusVisualStyle="{StaticResource FocusVisualStyle}"><Grid Margin="2"><Path Width="12" Height="12" Stretch="Fill" Fill="{Binding FavoriteBrush}" Data="F1 M 52.2716,27.8072C 48.9356,24.164 42.0671,25.7204 38.0992,31.3618C 33.0737,25.3024 27.0713,24.164 23.7257,27.8072C 14.4142,37.9485 34.3451,52.5246 37.9599,54.1634L 38.0438,54.2109L 38.0438,54.1634C 41.6554,52.5246 61.5832,37.9485 52.2716,27.8072 Z "/></Grid>-->
+										<Button.Style>
+											<Style TargetType="Button">
+												<Setter Property="Template">
+													<Setter.Value>
+														<ControlTemplate TargetType="{x:Type Button}">
+															<Border Name="Border" BorderThickness="0" Background="Transparent">
+																<ContentPresenter HorizontalAlignment="Left"/>
+															</Border>
+															<ControlTemplate.Triggers>
+																<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																	<Setter TargetName="Border" Property="Background" Value="{StaticResource LD_HoverBackgroundBrush}"/>
+																</Trigger>
+															</ControlTemplate.Triggers>
+														</ControlTemplate>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</Button.Style>
+									</Button>
+								</StackPanel>
+								<TextBlock TextAlignment="Left" Text="{Binding StarRatingText}" Visibility="{Binding StarRatingVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0" />
+								<!-- <TextBlock  Margin="0,0,0,0" TextAlignment="Left" Text="SPACER" Foreground="Transparent" TextWrapping="Wrap"  /> -->
+								<Rectangle Height="4" Width="10" Fill="Transparent" />
+								<TextBlock TextAlignment="Left" Text="{Binding Dates}" Visibility="{Binding DatesVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0" />
+								<TextBlock TextAlignment="Left" Text="{Binding LastPlayed}" Visibility="{Binding LastPlayedVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+							</StackPanel>
+							<StackPanel Margin="0,8,10,0" >
+								<TextBlock TextAlignment="Left" Text="{Binding File}" Visibility="{Binding FileVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock TextAlignment="Left" Text="{Binding Installed}" Visibility="{Binding InstalledVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock TextAlignment="Left" Text="{Binding Source}" Visibility="{Binding SourceVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock TextAlignment="Left" Text="{Binding Portable}" Visibility="{Binding PortableVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<Rectangle Height="4" Width="10" Fill="Transparent" />
+								<TextBlock  TextAlignment="Left" Text="{Binding Status}" Visibility="{Binding StatusVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock  TextAlignment="Left" Text="{Binding PlayCount}" Visibility="{Binding PlayCountVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+							</StackPanel>
+							<StackPanel Margin="0,8,10,0" HorizontalAlignment="Right" >
+								<TextBlock Text="{Binding ReleaseType, Mode=OneWay, StringFormat='◆ {0}'}" Visibility="{Binding ReleaseTypeVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0" />						
+								<TextBlock Text="{Binding Series, Mode=OneWay, StringFormat='◆ {0}'}" Visibility="{Binding SeriesVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock Text="{Binding Genres, Mode=OneWay, StringFormat='◆ {0}'}" Visibility="{Binding GenresVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock Text="{Binding PlayMode, Mode=OneWay, StringFormat='◆ {0}'}" Visibility="{Binding PlayModeVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock Text="{Binding MaxPlayers, Mode=OneWay, StringFormat='◆ {0}'}" Visibility="{Binding MaxPlayersVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0" />
+								<TextBlock Text="{Binding Region, Mode=OneWay, StringFormat='◆ {0}'}" Visibility="{Binding RegionVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<TextBlock Text="{Binding Rating, Mode=OneWay, StringFormat='◆ {0}'}" Visibility="{Binding RatingVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+								<Rectangle Height="4" Width="10" Fill="Transparent" />
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Visibility="{Binding WikipediaUrlVisibility}" VerticalAlignment="Center" Margin="0,0,4,0" Foreground="{StaticResource LD_ForegroundBrush}" FontSize="10"  FontFamily="Segoe MDL2 Assets" Text="&#xE774;" SnapsToDevicePixels="True"/>
+									<TextBlock Visibility="{Binding WikipediaUrlVisibility}" Margin="0,0,0,0">
+										<Hyperlink Foreground="{StaticResource LD_ButtonForegroundBrush}" Command="{Binding WebLinkCommand}" CommandParameter="{Binding WikipediaUrl}" >
+											<TextBlock TextWrapping="Wrap"  Text="{Binding WikipediaLinkLabel}" />
+										</Hyperlink>
+									</TextBlock>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Visibility="{Binding VideoUrlVisibility}" VerticalAlignment="Center" Margin="0,0,4,0" Foreground="{StaticResource LD_ForegroundBrush}" FontSize="10"  FontFamily="Segoe MDL2 Assets" Text="&#xE774;" SnapsToDevicePixels="True"/>
+									<TextBlock Visibility="{Binding VideoUrlVisibility}" Margin="0,0,0,0">
+										<Hyperlink Foreground="{StaticResource LD_ButtonForegroundBrush}" Command="{Binding WebLinkCommand}" CommandParameter="{Binding VideoUrl}">
+											<TextBlock Text="{Binding VideoUrlLabel}"/>
+									</Hyperlink>
+								</TextBlock>
+								</StackPanel>							
+							</StackPanel>
+							<StackPanel Margin="0,8,0,0" HorizontalAlignment="Right" >
+								<ItemsControl ItemsSource="{Binding CustomFields}" Focusable="False">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<!-- Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ForegroundBrush}" -->
+											<TextBlock TextAlignment="Left" Text="{Binding}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</StackPanel>
+						</WrapPanel>
+					</Border>
+					<Grid Visibility="{Binding EditVisibility}" Margin="0,0,0,0"  DockPanel.Dock="Top"  >
+						<Rectangle Height="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Fill="{StaticResource LD_LineSeparatorBrush}" Margin="-10,0,-10,-2" SnapsToDevicePixels="True" />
+						<ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="{Binding ScrollBarVisibility}" Margin="0,0,0,0" >
+							<StackPanel Orientation="Vertical" Margin="0,0,0,0" >
+								<TextBlock  Style="{DynamicResource LD_HorizontalAlignmentDetailsText}" Text="{Binding Notes}" Visibility="{Binding NotesVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0" />
+								<StackPanel>
+									<WrapPanel Name="ScreenshotImages" Visibility="{Binding ScreenshotsVisibility}"  Orientation="Horizontal" VerticalAlignment="Top" Margin="0,5,0,2"  Height="Auto" MinHeight="5" HorizontalAlignment="Center">
+										<WrapPanel.Resources>
+											<!-- FIXME: background on hover should be consistant with other elements but I don't know what the image container is (doesn't work on TargetType Image). -->
+											<Style TargetType="{x:Type Button}">
+												<Setter Property="Background" Value="Red"/>
+												<Setter Property="Foreground" Value="Green"/>
+											</Style>
+											<Style TargetType="{x:Type Image}">
+												<Setter Property="Margin" Value="8,0,8,0"/>
+												<Setter Property="Width" Value="196"/>
+												<Setter Property="MaxHeight" Value="196"/>
+												<Setter Property="HorizontalAlignment" Value="Center"/>
+												<Setter Property="VerticalAlignment" Value="Center"/>
+											</Style>
+										</WrapPanel.Resources>
+									</WrapPanel>
+									<!-- START MAME highscores -->
+									<Border x:Name="MameLeaderboardWeekly" Visibility="{Binding MameLeaderboardWeeklyVisibility}" BorderThickness="0" BorderBrush="{StaticResource LD_ForegroundBrush}" Margin="10,15,10,0">
+										<StackPanel>
+											<Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource LD_LineSeparatorBrush}" Margin="0,0,0,2">
+												<TextBlock Text="{Binding WeeklyCommunityLeaderboardLabel}"  HorizontalAlignment="Center" Background="#00FF0000" Foreground="{StaticResource LD_ForegroundBrush}" Padding="0,0,0,10" />
+											</Border>
+											<ScrollViewer MaxHeight="130" VerticalScrollBarVisibility="Auto">
+												<ItemsControl ItemsSource="{Binding MameLeaderboardWeekly}" Foreground="{StaticResource LD_ForegroundBrush}" Grid.IsSharedSizeScope="True">
+													<ItemsControl.ItemTemplate>
+														<DataTemplate>
+															<Grid Cursor="Hand" Margin="0,0,1,0">
+																<Grid.Style>
+																	<Style TargetType="{x:Type Grid}">
+																		<Setter Property="Background" Value="Transparent" />
+																		<Style.Triggers>
+																			<Trigger Property="IsMouseOver" Value="True">
+																				<Setter Property="Background" Value="{StaticResource LD_HoverBackgroundBrush}" />
+																			</Trigger>
+																		</Style.Triggers>
+																	</Style>
+																</Grid.Style>
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="*" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize2" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize3" />
+																</Grid.ColumnDefinitions>
+																<TextBlock Text="{Binding Name}" Grid.Column="0" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Score, StringFormat='N0'}" Grid.Column="1" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Date, StringFormat='yyyy-MM-dd'}" Grid.Column="2" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+															</Grid>
+														</DataTemplate>
+													</ItemsControl.ItemTemplate>
+												</ItemsControl>
+												<ScrollViewer.Resources>
+													<Style TargetType="ScrollBar">
+														<Setter Property="Template">
+															<Setter.Value>
+																<ControlTemplate TargetType="ScrollBar">
+																	<Track Name="PART_Track" IsDirectionReversed="true" Margin="0" ViewportSize="15">
+																		<Track.Resources>
+																			<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">120</system:Double>
+																		</Track.Resources>
+																		<Track.DecreaseRepeatButton>
+																			<RepeatButton Name="DecreaseRepeatButton" Command="ScrollBar.PageUpCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" BorderThickness="0" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.DecreaseRepeatButton>
+																		<Track.IncreaseRepeatButton>
+																			<RepeatButton Name="IncreaseRepeatButton" Command="ScrollBar.PageDownCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.IncreaseRepeatButton>
+																		<Track.Thumb>
+																			<Thumb Focusable="True" FocusVisualStyle="{StaticResource FocusVisualStyle}">
+																				<Thumb.Template>
+																					<ControlTemplate TargetType="Thumb">
+																						<Border Name="Border"  Background="{StaticResource ScrollbarUnfocusBrush}" BorderThickness="0" />
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarFocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</Thumb.Template>
+																			</Thumb>
+																		</Track.Thumb>
+																	</Track>
+																	<ControlTemplate.Triggers>
+																		<Trigger SourceName="PART_Track" Property="IsEnabled" Value="false">
+																			<Setter TargetName="PART_Track" Property="Visibility" Value="Hidden"/>
+																		</Trigger>
+																	</ControlTemplate.Triggers>
+																</ControlTemplate>
+															</Setter.Value>
+														</Setter>
+													</Style>
+													<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">7</system:Double>
+												</ScrollViewer.Resources>
+											</ScrollViewer>
+										</StackPanel>
+									</Border>
+									<Border x:Name="MameLeaderboardMonthly" Visibility="{Binding MameLeaderboardMonthlyVisibility}" BorderThickness="0" BorderBrush="{StaticResource LD_ForegroundBrush}" Margin="10,10,10,0">
+										<StackPanel>
+											<Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource LD_LineSeparatorBrush}" Margin="0,0,0,2">
+												<TextBlock Text="{Binding MonthlyCommunityLeaderboardLabel}"  HorizontalAlignment="Center" Background="#00FF0000" Foreground="{StaticResource LD_ForegroundBrush}" Padding="0,0,0,10" />
+											</Border>
+											<ScrollViewer MaxHeight="130" VerticalScrollBarVisibility="Auto">
+												<ItemsControl ItemsSource="{Binding MameLeaderboardMonthly}" Foreground="{StaticResource LD_ForegroundBrush}" Grid.IsSharedSizeScope="True">
+													<ItemsControl.ItemTemplate>
+														<DataTemplate>
+															<Grid Cursor="Hand" Margin="0,0,1,0">
+																<Grid.Style>
+																	<Style TargetType="{x:Type Grid}">
+																		<Setter Property="Background" Value="Transparent" />
+																		<Style.Triggers>
+																			<Trigger Property="IsMouseOver" Value="True">
+																				<Setter Property="Background" Value="{StaticResource LD_HoverBackgroundBrush}" />
+																			</Trigger>
+																		</Style.Triggers>
+																	</Style>
+																</Grid.Style>
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="*" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize2" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize3" />
+																</Grid.ColumnDefinitions>
+																<TextBlock Text="{Binding Name}" Grid.Column="0" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Score, StringFormat='N0'}" Grid.Column="1" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Date, StringFormat='yyyy-MM-dd'}" Grid.Column="2" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+															</Grid>
+														</DataTemplate>
+													</ItemsControl.ItemTemplate>
+												</ItemsControl>
+												<ScrollViewer.Resources>
+													<Style TargetType="ScrollBar">
+														<Setter Property="Template">
+															<Setter.Value>
+																<ControlTemplate TargetType="ScrollBar">
+																	<Track Name="PART_Track" IsDirectionReversed="true" Margin="0" ViewportSize="15">
+																		<Track.Resources>
+																			<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">120</system:Double>
+																		</Track.Resources>
+																		<Track.DecreaseRepeatButton>
+																			<RepeatButton Name="DecreaseRepeatButton" Command="ScrollBar.PageUpCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" BorderThickness="0" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.DecreaseRepeatButton>
+																		<Track.IncreaseRepeatButton>
+																			<RepeatButton Name="IncreaseRepeatButton" Command="ScrollBar.PageDownCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.IncreaseRepeatButton>
+																		<Track.Thumb>
+																			<Thumb Focusable="True" FocusVisualStyle="{StaticResource FocusVisualStyle}">
+																				<Thumb.Template>
+																					<ControlTemplate TargetType="Thumb">
+																						<Border Name="Border"  Background="{StaticResource ScrollbarUnfocusBrush}" BorderThickness="0" />
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarFocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</Thumb.Template>
+																			</Thumb>
+																		</Track.Thumb>
+																	</Track>
+																	<ControlTemplate.Triggers>
+																		<Trigger SourceName="PART_Track" Property="IsEnabled" Value="false">
+																			<Setter TargetName="PART_Track" Property="Visibility" Value="Hidden"/>
+																		</Trigger>
+																	</ControlTemplate.Triggers>
+																</ControlTemplate>
+															</Setter.Value>
+														</Setter>
+													</Style>
+													<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">7</system:Double>
+												</ScrollViewer.Resources>
+											</ScrollViewer>
+										</StackPanel>
+									</Border>
+									<Border x:Name="MameLeaderboardYearly" Visibility="{Binding MameLeaderboardYearlyVisibility}" BorderThickness="0" BorderBrush="{StaticResource LD_ForegroundBrush}" Margin="10,10,10,0">
+										<StackPanel>
+											<Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource LD_LineSeparatorBrush}" Margin="0,0,0,2">
+												<TextBlock Text="{Binding YearlyCommunityLeaderboardLabel}"  HorizontalAlignment="Center" Background="#00FF0000" Foreground="{StaticResource LD_ForegroundBrush}" Padding="0,0,0,10" />
+											</Border>
+											<ScrollViewer MaxHeight="130" VerticalScrollBarVisibility="Auto">
+												<ItemsControl ItemsSource="{Binding MameLeaderboardYearly}" Foreground="{StaticResource LD_ForegroundBrush}" Grid.IsSharedSizeScope="True">
+													<ItemsControl.ItemTemplate>
+														<DataTemplate>
+															<Grid Cursor="Hand" Margin="0,0,1,0">
+																<Grid.Style>
+																	<Style TargetType="{x:Type Grid}">
+																		<Setter Property="Background" Value="Transparent" />
+																		<Style.Triggers>
+																			<Trigger Property="IsMouseOver" Value="True">
+																				<Setter Property="Background" Value="{StaticResource LD_HoverBackgroundBrush}" />
+																			</Trigger>
+																		</Style.Triggers>
+																	</Style>
+																</Grid.Style>
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="*" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize2" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize3" />
+																</Grid.ColumnDefinitions>
+																<TextBlock Text="{Binding Name}" Grid.Column="0" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Score, StringFormat='N0'}" Grid.Column="1" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Date, StringFormat='yyyy-MM-dd'}" Grid.Column="2" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+															</Grid>
+														</DataTemplate>
+													</ItemsControl.ItemTemplate>
+												</ItemsControl>
+												<ScrollViewer.Resources>
+													<Style TargetType="ScrollBar">
+														<Setter Property="Template">
+															<Setter.Value>
+																<ControlTemplate TargetType="ScrollBar">
+																	<Track Name="PART_Track" IsDirectionReversed="true" Margin="0" ViewportSize="15">
+																		<Track.Resources>
+																			<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">120</system:Double>
+																		</Track.Resources>
+																		<Track.DecreaseRepeatButton>
+																			<RepeatButton Name="DecreaseRepeatButton" Command="ScrollBar.PageUpCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" BorderThickness="0" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.DecreaseRepeatButton>
+																		<Track.IncreaseRepeatButton>
+																			<RepeatButton Name="IncreaseRepeatButton" Command="ScrollBar.PageDownCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.IncreaseRepeatButton>
+																		<Track.Thumb>
+																			<Thumb Focusable="True" FocusVisualStyle="{StaticResource FocusVisualStyle}">
+																				<Thumb.Template>
+																					<ControlTemplate TargetType="Thumb">
+																						<Border Name="Border"  Background="{StaticResource ScrollbarUnfocusBrush}" BorderThickness="0" />
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarFocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</Thumb.Template>
+																			</Thumb>
+																		</Track.Thumb>
+																	</Track>
+																	<ControlTemplate.Triggers>
+																		<Trigger SourceName="PART_Track" Property="IsEnabled" Value="false">
+																			<Setter TargetName="PART_Track" Property="Visibility" Value="Hidden"/>
+																		</Trigger>
+																	</ControlTemplate.Triggers>
+																</ControlTemplate>
+															</Setter.Value>
+														</Setter>
+													</Style>
+													<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">7</system:Double>
+												</ScrollViewer.Resources>
+											</ScrollViewer>
+										</StackPanel>
+									</Border>
+									<Border x:Name="MameLeaderboard" Visibility="{Binding MameLeaderboardVisibility}" BorderThickness="0" BorderBrush="{StaticResource LD_ForegroundBrush}" Margin="10,10,10,0">
+										<StackPanel>
+											<Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource LD_LineSeparatorBrush}" Margin="0,0,0,2">
+												<TextBlock Text="{Binding AllTimeCommunityLeaderboardLabel}"  HorizontalAlignment="Center" Background="#00FF0000" Foreground="{StaticResource LD_ForegroundBrush}" Padding="0,0,0,10" />
+											</Border>
+											<ScrollViewer MaxHeight="130" VerticalScrollBarVisibility="Auto">
+												<ItemsControl ItemsSource="{Binding MameLeaderboard}" Foreground="{StaticResource LD_ForegroundBrush}" Grid.IsSharedSizeScope="True">
+													<ItemsControl.ItemTemplate>
+														<DataTemplate>
+															<Grid Cursor="Hand" Margin="0,0,1,0">
+																<Grid.Style>
+																	<Style TargetType="{x:Type Grid}">
+																		<Setter Property="Background" Value="Transparent" />
+																		<Style.Triggers>
+																			<Trigger Property="IsMouseOver" Value="True">
+																				<Setter Property="Background" Value="{StaticResource LD_HoverBackgroundBrush}" />
+																			</Trigger>
+																		</Style.Triggers>
+																	</Style>
+																</Grid.Style>
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="*" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize2" />
+																	<ColumnDefinition Width="Auto" SharedSizeGroup="ColumnSize3" />
+																</Grid.ColumnDefinitions>
+																<TextBlock Text="{Binding Name}" Grid.Column="0" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Score, StringFormat='N0'}" Grid.Column="1" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+																<TextBlock Text="{Binding Path=Date, StringFormat='yyyy-MM-dd'}" Grid.Column="2" HorizontalAlignment="Right" Padding="5,3,5,3" TextTrimming="CharacterEllipsis"  />
+															</Grid>
+														</DataTemplate>
+													</ItemsControl.ItemTemplate>
+												</ItemsControl>
+												<ScrollViewer.Resources>
+													<Style TargetType="ScrollBar">
+														<Setter Property="Template">
+															<Setter.Value>
+																<ControlTemplate TargetType="ScrollBar">
+																	<Track Name="PART_Track" IsDirectionReversed="true" Margin="0" ViewportSize="15">
+																		<Track.Resources>
+																			<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">120</system:Double>
+																		</Track.Resources>
+																		<Track.DecreaseRepeatButton>
+																			<RepeatButton Name="DecreaseRepeatButton" Command="ScrollBar.PageUpCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" BorderThickness="0" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.DecreaseRepeatButton>
+																		<Track.IncreaseRepeatButton>
+																			<RepeatButton Name="IncreaseRepeatButton" Command="ScrollBar.PageDownCommand" Background="{Binding ControlsBackgroundBrush}" Focusable="False">
+																				<RepeatButton.Template>
+																					<ControlTemplate TargetType="RepeatButton">
+																						<Grid>
+																							<Border Name="Border" Background="#00000000" />
+																						</Grid>
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</RepeatButton.Template>
+																			</RepeatButton>
+																		</Track.IncreaseRepeatButton>
+																		<Track.Thumb>
+																			<Thumb Focusable="True" FocusVisualStyle="{StaticResource FocusVisualStyle}">
+																				<Thumb.Template>
+																					<ControlTemplate TargetType="Thumb">
+																						<Border Name="Border"  Background="{StaticResource ScrollbarUnfocusBrush}" BorderThickness="0" />
+																						<ControlTemplate.Triggers>
+																							<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																								<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarFocusBrush}" />
+																							</Trigger>
+																						</ControlTemplate.Triggers>
+																					</ControlTemplate>
+																				</Thumb.Template>
+																			</Thumb>
+																		</Track.Thumb>
+																	</Track>
+																	<ControlTemplate.Triggers>
+																		<Trigger SourceName="PART_Track" Property="IsEnabled" Value="false">
+																			<Setter TargetName="PART_Track" Property="Visibility" Value="Hidden"/>
+																		</Trigger>
+																	</ControlTemplate.Triggers>
+																</ControlTemplate>
+															</Setter.Value>
+														</Setter>
+													</Style>
+													<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">7</system:Double>
+												</ScrollViewer.Resources>
+											</ScrollViewer>
+										</StackPanel>
+									</Border>
+									<TextBlock Text="{Binding HighScoresNotSupportedLabel}" Visibility="{Binding HighScoresNotSupportedVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" FontStyle="Italic" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,10,0,0" />
+									<TextBlock Text="{Binding HighScoresSupportedLabel}" Visibility="{Binding HighScoresSupportedVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" FontStyle="Italic" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,10,0,0" />
+									<!-- END MAME highscores -->
+								</StackPanel>
+								<TextBlock Text="{Binding AchievementsLoadingLabel}" Visibility="{Binding AchievementsLoadingVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0" />
+								<TextBlock Text="{Binding NoAchievementsAvailableLabel}" Visibility="{Binding NoAchievementsAvailableVisibility}" Foreground="{StaticResource LD_ForegroundBrush}" TextWrapping="Wrap" Margin="0,0,0,0"  />
+								<!-- FIXME?: can't set font color, margins etc. atm. -->
+								<ContentControl Name="AchievementList" Visibility="{Binding AchievementsVisibility}"  FontSize="12" FontWeight="{x:Static SystemFonts.MessageFontWeight}" FontFamily="{x:Static SystemFonts.MessageFontFamily}" Padding="0" Margin="0,-5,0,0"/>
+								<TextBlock  Margin="0,0,0,0" TextAlignment="Left" Text="SPACER" Foreground="Transparent" TextWrapping="Wrap"  />
+							</StackPanel>
+							<ScrollViewer.Template>
+								<ControlTemplate TargetType="{x:Type ScrollViewer}">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+										<ScrollContentPresenter Grid.Column="0"/>
+										<ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="2" Margin="5,0,-5,0" Value="{TemplateBinding VerticalOffset}" Maximum="{TemplateBinding ScrollableHeight}" ViewportSize="{TemplateBinding ViewportHeight}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" HorizontalAlignment="Right"/>
+									</Grid>
+								</ControlTemplate>
+							</ScrollViewer.Template>
+							<ScrollViewer.Resources>
+								<Style TargetType="ScrollBar">
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="ScrollBar">
+												<Track Name="PART_Track" IsDirectionReversed="true" Margin="0,0,0,0" ViewportSize="15">
+													<Track.Resources>
+														<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">120</system:Double>
+													</Track.Resources>
+													<Track.DecreaseRepeatButton>
+														<RepeatButton Name="DecreaseRepeatButton" Command="ScrollBar.PageUpCommand" Background="{StaticResource LD_MainBackgroundBrush}" Focusable="False">
+															<RepeatButton.Template>
+																<ControlTemplate TargetType="RepeatButton">
+																	<Grid>
+																		<Border Name="Border" Background="#00000000" BorderThickness="0" CornerRadius="0,0,0,0"/>
+																	</Grid>
+																	<ControlTemplate.Triggers>
+																		<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																			<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}"/>
+																		</Trigger>
+																	</ControlTemplate.Triggers>
+																</ControlTemplate>
+															</RepeatButton.Template>
+														</RepeatButton>
+													</Track.DecreaseRepeatButton>
+													<Track.IncreaseRepeatButton>
+														<RepeatButton Name="IncreaseRepeatButton" Command="ScrollBar.PageDownCommand" Background="{StaticResource LD_MainBackgroundBrush}" Focusable="False">
+															<RepeatButton.Template>
+																<ControlTemplate TargetType="RepeatButton">
+																	<Grid>
+																		<Border Name="Border" Background="#00000000" CornerRadius="0,0,0,0"/>
+																	</Grid>
+																	<ControlTemplate.Triggers>
+																		<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																			<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarUnfocusBrush}"/>
+																		</Trigger>
+																	</ControlTemplate.Triggers>
+																</ControlTemplate>
+															</RepeatButton.Template>
+														</RepeatButton>
+													</Track.IncreaseRepeatButton>
+													<Track.Thumb>
+														<Thumb Focusable="True" FocusVisualStyle="{StaticResource FocusVisualStyle}">
+															<Thumb.Template>
+																<ControlTemplate TargetType="Thumb">
+																	<Border Name="Border" Background="{StaticResource ScrollbarUnfocusBrush}" BorderThickness="0" CornerRadius="0"/>
+																	<ControlTemplate.Triggers>
+																		<Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+																			<Setter TargetName="Border" Property="Background" Value="{StaticResource ScrollbarFocusBrush}"/>
+																		</Trigger>
+																	</ControlTemplate.Triggers>
+																</ControlTemplate>
+															</Thumb.Template>
+														</Thumb>
+													</Track.Thumb>
+												</Track>
+												<ControlTemplate.Triggers>
+													<Trigger SourceName="PART_Track" Property="IsEnabled" Value="false">
+														<Setter TargetName="PART_Track" Property="Visibility" Value="Hidden"/>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+								<system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">7</system:Double>
+							</ScrollViewer.Resources>
+						</ScrollViewer>
+					</Grid>
+				</DockPanel>
+			</Grid>
+		</Grid>
+	</Grid>
+</UserControl>

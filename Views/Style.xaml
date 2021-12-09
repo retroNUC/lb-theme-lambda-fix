@@ -1,0 +1,27 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+<!--
+
+STYLE BOOTSTRAP
+
+-->
+
+<ResourceDictionary.MergedDictionaries>
+
+	<!-- Color theme: -->
+	<ResourceDictionary Source="Styles/_default-colors.xaml"/>
+
+	<!-- Comment out if you don't use a background image (use color theme background color): -->
+	<ResourceDictionary Source="Styles/_image_background.xaml"/>
+
+	<!-- Button bar millenium edition : -->
+	<!-- <ResourceDictionary Source="Styles/_controlseffect.xaml"/> -->
+
+    <!-- User tweaks -->
+	<ResourceDictionary Source="Settings.xaml"/>
+
+</ResourceDictionary.MergedDictionaries>
+
+
+
+</ResourceDictionary>

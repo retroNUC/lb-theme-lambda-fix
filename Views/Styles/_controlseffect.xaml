@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<x:String x:Key="LD_subtheme_name">ToolBarEffect</x:String>
+	<SolidColorBrush x:Key="LD_ToolBarBackgroundBrush" Color="#ee222222"/>
+	<Style TargetType="Rectangle" x:Key="LD_ToolBarSurfaceShape">
+		<Setter Property="Visibility" Value="Visible"/>
+	</Style>
+</ResourceDictionary>

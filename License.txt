@@ -1,0 +1,5 @@
+Lambda theme for Launchbox by Shadowfire.
+A fork of Plex theme by Grila and bits of code from LaunchBox Default theme by Unbroken Software.
+
+CC BY-NC-SA 4.0 Shadowfire 2020 
+https://creativecommons.org/licenses/by-nc-sa/4.0/
