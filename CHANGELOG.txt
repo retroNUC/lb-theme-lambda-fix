@@ -1,3 +1,9 @@
+beta-fix 1.1.2a 2021-12-09
+---------------------
+-SideBarView: Fixed missing Filter button on search bar in later versions of LaunchBox
+-ListContentView: Fixed column sorting for date-related fields, such as 'Release Date' and 'Last Played'
+-ListContentView: Fixed missing column bindings (including Badges) that were introduced in later versions of LaunchBox
+
 beta 1.1.2 2020-11-26
 ---------------------
 -GameDetails: revised achievements code to enable Steam achievements
