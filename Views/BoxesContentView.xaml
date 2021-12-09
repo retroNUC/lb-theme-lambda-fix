@@ -4,7 +4,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Views/Style.xaml" />
+				<ResourceDictionary Source="pack://siteoforigin:,,,/LBThemes/lb-theme-lambda-fix/Views/Style.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<Style x:Key="FocusVisualStyle">
 				<Setter Property="Control.Template">

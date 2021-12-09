@@ -4,7 +4,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Views/Style.xaml" />
+				<ResourceDictionary Source="pack://siteoforigin:,,,/LBThemes/lb-theme-lambda-fix/Views/Style.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<next:VideoWidthToHeightConverter x:Key="VideoWidthToHeightConverter"/>
 			<Style x:Key="FocusVisualStyle">
@@ -66,9 +66,9 @@
 			</Grid.Style>
 			<Grid Visibility="Visible" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  >
 				<StackPanel  Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5,15,15">
-					<!-- <Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/logo.png" Margin="0" MaxHeight="150" /> -->
-					<Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/logo-flat.png" Margin="0" MaxHeight="150" />
-					<!-- <Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/logo-shadow.png" Margin="0" MaxHeight="150" /> -->
+					<!-- <Image Source="pack://siteoforigin:,,,/LBThemes/lb-theme-lambda-fix/Images/logo.png" Margin="0" MaxHeight="150" /> -->
+					<Image Source="pack://siteoforigin:,,,/LBThemes/lb-theme-lambda-fix/Images/logo-flat.png" Margin="0" MaxHeight="150" />
+					<!-- <Image Source="pack://siteoforigin:,,,/LBThemes/lb-theme-lambda-fix/Images/logo-shadow.png" Margin="0" MaxHeight="150" /> -->
 					<TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Foreground="{StaticResource LD_ForegroundBrush}" Text="LaunchBox"  FontSize="22" FontWeight="Bold"  TextWrapping="Wrap" />
 				</StackPanel>
 			</Grid>
@@ -137,7 +137,7 @@
 									</Style.Triggers>
 								</Style>
 							</Grid.Style>
-							<Image Source="pack://siteoforigin:,,,/LBThemes/Lambda beta 1.1/Images/video_aspect_placeholder.png"  Margin="0"/>
+							<Image Source="pack://siteoforigin:,,,/LBThemes/lb-theme-lambda-fix/Images/video_aspect_placeholder.png"  Margin="0"/>
 							<controls:VideoControl x:Name="VideoControl" ClipToBounds="True" Background="Transparent" Height="{Binding ElementName=VideoContainer, Path=ActualHeight}" />
 						</Grid>
 						<StackPanel HorizontalAlignment="Center" Margin="0,0,0,0">
