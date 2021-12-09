@@ -5,7 +5,7 @@ Updated and fixed version of [Lambda](https://forums.launchbox-app.com/files/fil
 ![Image View](https://forums.launchbox-app.com/uploads/monthly_2020_05/03-Greenshot-2020-04-29_15-27-47.png.beded1676c9c0f2a24449a2ef6fb1d96.png)
 
 ## Additional Fixes
-- Added filter view button to SideBarView search (thanks to [MadK9](https://forums.launchbox-app.com/files/file/2417-lambda-beta/page/3/?tab=comments#comment-9789) for the fix)
+- SideBarView - Added filter view button to search (thanks to [MadK9](https://forums.launchbox-app.com/files/file/2417-lambda-beta/page/3/?tab=comments#comment-9789) for original fix)
 
 ## Credits / Thanks
 - Grila (original code from [LBPlex](https://forums.launchbox-app.com/files/file/1407-lbplex/) theme)
