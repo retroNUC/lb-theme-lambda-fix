@@ -17,6 +17,7 @@ The theme folder ***must*** be called `lb-theme-lambda-fix` for now (until some 
 ### ListContentView
 - Fixed column sorting for date-related fields, such as 'Release Date' and 'Last Played'
 - Fixed missing column bindings (including Badges) that were introduced in later versions of LaunchBox
+- Reduced size of badge images slightly to keep row height consistent
 
 ## Credits / Thanks
 - Grila (original code from [LBPlex](https://forums.launchbox-app.com/files/file/1407-lbplex/) theme)

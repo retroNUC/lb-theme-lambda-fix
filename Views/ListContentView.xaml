@@ -323,7 +323,7 @@
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <Image x:Name="BadgeImage" Source="{Binding Path=Icon, Converter={StaticResource ImageToSourceConverter}, Mode=OneTime}"
-                                                    Width="20" Margin="0,0,6,0" RenderOptions.BitmapScalingMode="HighQuality" ToolTip="{Binding Name, Mode=OneTime}" />
+                                                    Width="16" Margin="0,0,6,0" RenderOptions.BitmapScalingMode="HighQuality" ToolTip="{Binding Name, Mode=OneTime}" />
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                     <ListView.ItemContainerStyle>
